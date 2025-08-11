@@ -10,14 +10,14 @@ struct Start {
       this.count--
       if (this.count == 0) {
         clearInterval(timeId)
-        console.log('123')
+        this.pathStack.replacePathByName('Login',null)
       }
     }, 1000)
 
   }
 
   pathStack: NavPathStack = new NavPathStack()
-  @Local count: number = 3
+  @Local count: number = 1
 
   build() {
     NavDestination() {
@@ -38,6 +38,9 @@ struct Start {
             .borderRadius(15)
             .textAlign(TextAlign.Center)
             .margin({ top: 30, right: 15 })
+            .onClick(()=>{
+              this.pathStack.replacePathByName('Login',null)
+            })
         }
 
         Image($r('app.media.start_bg'))
