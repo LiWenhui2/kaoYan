@@ -1,0 +1,12 @@
+{
+  "routerMap": [
+    {
+      "name": "Start",
+      "buildFunction": "StartBuilder",
+      "pageSourceFile": "src/main/ets/pages/startPages/Start.ets",
+      "data": {
+        "description": "Start page"
+      }
+    }
+  ]
+}
