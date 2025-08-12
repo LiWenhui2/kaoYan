@@ -24,8 +24,9 @@ struct Login {
     { icon: $r('app.media.start_login_QQ'), bgc: '#8ed7ea', text: 'QQ登录' },
     { icon: $r('app.media.start_login_web'), bgc: '#ea8e8e', text: '微博登录' }
   ]
-  @Local phoneNumber: string = ''
+  @Local phoneNumber: string = '15502796477'
   @Local phoneNumberIsValidate: boolean = false
+  @Local handlePopup: boolean = false
 
   @Builder
   build() {
@@ -47,16 +48,33 @@ struct Login {
             Image($r('app.media.start_area_code'))
               .width(24)
             TextInput({ placeholder: '请输入您的手机号', text: $$this.phoneNumber })
+              .type(InputType.PhoneNumber)
               .backgroundColor('#fff')
               .placeholderColor('#cecece')
               .placeholderFont({ size: 14, weight: 600 })
               .padding(0)
               .layoutWeight(1)
+              .onChange(value => {
+                if (value.match(/^1[3-9]\d{9}$/)) {
+                  this.phoneNumberIsValidate = true
+                } else {
+                  this.phoneNumberIsValidate = false
+                }
+
+              })
+              .bindPopup(this.handlePopup, {
+                message: '请输入正确手机号',
+                messageOptions: {
+                  textColor: Color.Red
+                },
+                onWillDismiss: () => {
+                  this.handlePopup = false
+                }
+              })
             Image($r('app.media.start_clearInput'))
               .width(20)
               .onClick(() => {
                 this.phoneNumber = ''
-                console.log(this.phoneNumber + '111')
               })
           }
           .border({ width: { bottom: 1 }, color: '#f2f2f2' })
@@ -66,9 +84,18 @@ struct Login {
           Button('下一步')
             .width(300)
             .height(45)
-            .backgroundColor('#f2f2f2')
+            .backgroundColor(this.phoneNumberIsValidate ? '#0a59f7' : '#f2f2f2')
             .fontColor('#cecece')
             .fontWeight(600)
+            .stateEffect(false)
+            .onClick(() => {
+              if (!this.phoneNumberIsValidate) {
+                this.handlePopup = true
+              } else {
+                this.pathStack.pushPathByName('SendCode', null)
+              }
+            })
+
           Text('账户密码登录')
             .textStyles()
             .fontSize(13)
