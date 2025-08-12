@@ -92,7 +92,7 @@ struct Login {
               if (!this.phoneNumberIsValidate) {
                 this.handlePopup = true
               } else {
-                this.pathStack.pushPathByName('SendCode', null)
+                this.pathStack.pushPathByName('SendCode', this.phoneNumber)
               }
             })
 
