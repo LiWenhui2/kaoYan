@@ -42,7 +42,8 @@ struct SendCode {
     builder: this.sendCode,
     width: 100,
     height: 80,
-    cornerRadius: 8
+    cornerRadius: 8,
+    isModal: false
   })
 
   build() {
@@ -122,6 +123,11 @@ struct SendCode {
           .fontColor('#cecece')
           .fontWeight(600)
           .stateEffect(false)
+          .onClick(() => {
+            if (this.code.length == 4) {
+              this.pathStack.replacePathByName('BaseInfo', null)
+            }
+          })
       }
       .height('100%')
       .width('100%')

@@ -23,6 +23,14 @@
       "data": {
         "description": "Login page"
       }
+    },
+    {
+      "name": "BaseInfo",
+      "buildFunction": "BaseInfoBuilder",
+      "pageSourceFile": "src/main/ets/pages/startPages/BaseInfo.ets",
+      "data": {
+        "description": "Login page"
+      }
     }
   ]
 }

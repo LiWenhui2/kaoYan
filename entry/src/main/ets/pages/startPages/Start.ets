@@ -10,7 +10,8 @@ struct Start {
       this.count--
       if (this.count == 0) {
         clearInterval(timeId)
-        this.pathStack.replacePathByName('Login',null)
+        // this.pathStack.replacePathByName('Login',null)
+        this.pathStack.replacePathByName('BaseInfo', null)
       }
     }, 1000)
 
@@ -38,8 +39,8 @@ struct Start {
             .borderRadius(15)
             .textAlign(TextAlign.Center)
             .margin({ top: 30, right: 15 })
-            .onClick(()=>{
-              this.pathStack.replacePathByName('Login',null)
+            .onClick(() => {
+              this.pathStack.replacePathByName('Login', null)
             })
         }
 
