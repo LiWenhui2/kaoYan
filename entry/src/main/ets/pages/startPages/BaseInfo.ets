@@ -5,7 +5,7 @@ export function BaseInfoBuilder() {
 
 @Extend(Text)
 function titleStyle() {
-  .fontWeight(600)
+  .fontWeight(500)
   .fontSize(14)
   .fontColor('#101010')
   .width('100%')
@@ -16,6 +16,9 @@ function titleStyle() {
 struct BaseInfo {
   pathStack: NavPathStack = new NavPathStack()
   @Local isGenderSelect: boolean = true
+  @Local nickName: string = ''
+  @Local data: string = '请选择考研时间'
+  @Local academyInfo: string = ''
 
   build() {
     NavDestination() {
@@ -25,6 +28,9 @@ struct BaseInfo {
           .textAlign(TextAlign.End)
           .fontColor('#101010')
           .fontWeight(500)
+          .onClick(() => {
+            this.pathStack.replacePathByName('Focus', null)
+          })
         Text('填写基本信息')
           .fontSize(26)
           .fontWeight(500)
@@ -88,30 +94,74 @@ struct BaseInfo {
           Column({ space: 5 }) {
             Text('昵称')
               .titleStyle()
-            TextInput({ placeholder: '请填写昵称' })
+            TextInput({ placeholder: '请填写昵称', text: $$this.nickName })
               .placeholderColor('#cecece')
-              .placeholderFont({ weight: 700 })
+              .placeholderFont({ weight: 500 })
               .backgroundColor('#fff')
               .borderRadius(0)
               .padding(0)
               .caretColor('#cecece')
+              .fontColor('#101010')
+              .fontWeight(700)
+
             Divider().color('#eaeaea').strokeWidth(1)
           }
 
           Column({ space: 5 }) {
             Text('考研年份')
               .titleStyle()
-            Text('请选择考研时间')
-              .fontColor('#cecece')
-              .fontWeight(700)
+            Text(this.data)
+              .fontColor(this.data == '请选择考研时间' ? '#cecece' : '#101010')
+              .fontWeight(500)
               .backgroundColor('#fff')
               .width('100%')
               .onClick(() => {
+                const range: string[] = []
+                for (let i = 0; i < 10; i++) {
+                  const year: number =
+                    new Date(`${new Date().getFullYear()}-12-21`) > new Date() ? new Date().getFullYear() :
+                      new Date().getFullYear() + 1
+                  range.push(year + i + '')
+                }
                 this.getUIContext().showTextPickerDialog({
-                  range: [new Date().getFullYear().toString()]
+                  range: range,
+                  canLoop: false,
+                  onAccept: (res => {
+                    this.data = res.value as string
+                  })
                 })
               })
             Divider().color('#eaeaea').strokeWidth(1)
+          }
+
+          Column({ space: 5 }) {
+            Text('报考院校')
+              .titleStyle()
+            TextInput({ placeholder: '请填写报考院校', text: $$this.academyInfo })
+              .placeholderColor('#cecece')
+              .placeholderFont({ weight: 500 })
+              .backgroundColor('#fff')
+              .borderRadius(0)
+              .padding(0)
+              .caretColor('#cecece')
+              .fontColor('#101010')
+              .fontWeight(700)
+
+            Divider().color('#eaeaea').strokeWidth(1)
+            Button('下一步')
+              .width(300)
+              .height(45)
+              .backgroundColor(this.nickName && this.academyInfo && this.data != '请选择考研年份' ? '#0a59f7' :
+                '#f2f2f2')
+              .fontColor('#cecece')
+              .fontWeight(600)
+              .stateEffect(false)
+              .margin({ top: 220 })
+              .onClick(() => {
+                if (this.nickName && this.academyInfo && this.data != '请选择考研年份') {
+                  this.pathStack.replacePathByName('Focus', null)
+                }
+              })
           }
         }
 

@@ -11,7 +11,7 @@ struct Start {
       if (this.count == 0) {
         clearInterval(timeId)
         // this.pathStack.replacePathByName('Login',null)
-        this.pathStack.replacePathByName('BaseInfo', null)
+        this.pathStack.replacePathByName('Focus', null)
       }
     }, 1000)
 

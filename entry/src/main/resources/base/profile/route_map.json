@@ -21,7 +21,7 @@
       "buildFunction": "SendCodeBuilder",
       "pageSourceFile": "src/main/ets/pages/startPages/SendCode.ets",
       "data": {
-        "description": "Login page"
+        "description": "SendCode page"
       }
     },
     {
@@ -29,7 +29,15 @@
       "buildFunction": "BaseInfoBuilder",
       "pageSourceFile": "src/main/ets/pages/startPages/BaseInfo.ets",
       "data": {
-        "description": "Login page"
+        "description": "BaseInfo page"
+      }
+    },
+    {
+      "name": "Focus",
+      "buildFunction": "FocusBuilder",
+      "pageSourceFile": "src/main/ets/pages/startPages/Focus.ets",
+      "data": {
+        "description": "Focus page"
       }
     }
   ]
